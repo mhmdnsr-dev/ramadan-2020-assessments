@@ -1,22 +1,24 @@
 var VideoRequest = require('./../models/video-requests.model');
 
 module.exports = {
-  createRequest: (vidRequestData) => {
+  createRequest: vidRequestData => {
     let newRequest = new VideoRequest(vidRequestData);
     return newRequest.save();
   },
 
-  getAllVideoRequests: (top) => {
-    return VideoRequest.find({}).sort({ submit_date: '-1' }).limit(top);
+  getAllVideoRequests: async top => {
+    // await VideoRequest.deleteMany()
+    return VideoRequest.find({})
+    // .sort({ submit_date: '-1' }).limit(top);
   },
 
-  searchRequests: (topic) => {
+  searchRequests: topic => {
     return VideoRequest.find({ topic_title: topic })
-      .sort({ addedAt: '-1' })
-      .limit(top);
+      // .sort({ addedAt: '-1' })
+      // .limit(top);
   },
 
-  getRequestById: (id) => {
+  getRequestById: id => {
     return VideoRequest.findById({ _id: id });
   },
 
@@ -46,7 +48,7 @@ module.exports = {
     );
   },
 
-  deleteRequest: (id) => {
+  deleteRequest: id => {
     return VideoRequest.deleteOne({ _id: id });
   },
 };
